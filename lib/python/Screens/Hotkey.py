@@ -18,7 +18,7 @@ def getHotkeys():
 	return [(_("Red") + " " + _("long"), "red_long", ""),
 		(_("Green") + " " + _("long"), "green_long", ""),
 		(_("Yellow") + " " + _("long"), "yellow_long", ""),
-		(_("Blue") + " " + _("long"), "blue_long", "SoftcamSetup"),
+		(_("Blue") + " " + _("long"), "blue_long", ""),
 		("F1/LAN", "f1", ""),
 		("F1" + " " + _("long"), "f1_long", ""),
 		("F2", "f2", ""),
@@ -613,9 +613,6 @@ class InfoBarHotkey():
 					exec "self.session.open(" + ",".join(selected[2:]) + ")"
 				except:
 					print "[Hotkey] error during executing module %s, screen %s" % (selected[1], selected[2])
-			elif selected[0] == "SoftcamSetup" and SystemInfo["HasSoftcamInstalled"]:
-				from Screens.SoftcamSetup import SoftcamSetup
-				self.session.open(SoftcamSetup)
 			elif selected[0] == "Setup":
 				from Screens.Setup import *
 				exec "self.session.open(Setup, \"" + selected[1] + "\")"

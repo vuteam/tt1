@@ -10,7 +10,7 @@ from Components.Label import Label
 from Components.Language import language
 from Components.Harddisk import harddiskmanager
 from Components.Sources.StaticText import StaticText
-from Components.SystemInfo import SystemInfo, hassoftcaminstalled
+from Components.SystemInfo import SystemInfo
 from Components import Ipkg
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
@@ -250,7 +250,6 @@ class PluginDownloadBrowser(Screen):
 		self.installedplugins = []
 		self.plugins_changed = False
 		self.reload_settings = False
-		self.check_softcams = False
 		self.check_settings = False
 		self.install_settings_name = ''
 		self.remove_settings_name = ''
@@ -297,8 +296,6 @@ class PluginDownloadBrowser(Screen):
 			self["text"].setText(_("Reloading bouquets and services..."))
 			eDVBDB.getInstance().reloadBouquets()
 			eDVBDB.getInstance().reloadServicelist()
-		if self.check_softcams:
-			SystemInfo["HasSoftcamInstalled"] = hassoftcaminstalled()
 		plugins.readPluginList(resolveFilename(SCOPE_PLUGINS))
 		self.container.appClosed.remove(self.runFinished)
 		self.container.dataAvail.remove(self.dataAvail)
@@ -403,8 +400,6 @@ class PluginDownloadBrowser(Screen):
 		self.plugins_changed = True
 		if self["list"].l.getCurrentSelection()[0].name.startswith("settings-"):
 			self.reload_settings = True
-		if self["list"].l.getCurrentSelection()[0].name.startswith("softcams-"):
-			self.check_softcams = True
 		self.expanded = []
 		self.updateList()
 		self["list"].moveToIndex(0)
